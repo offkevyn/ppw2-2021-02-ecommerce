@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Facelets Template</title>
+        <h:outputStylesheet library="css" name="default.css" ></h:outputStylesheet>
+    </h:head>
+
+    <h:body>
+        <h:graphicImage width="50px" library="imagens" name="pakun.png"> </h:graphicImage>
+        
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="Inicio" url="index.xhtml" icon="pi pi-fw pi-home"/>
+                <p:submenu label="Cadastros" icon="pi pi-fw pi-file">
+                    <p:menuitem value="Gerenciar Usuarios" url="gerenciar-usuarios.xhtml" icon="pi pi-fw pi-users"/>
+                </p:submenu>
+            </p:menubar>
+
+            <p:messages id="messages" closable="true" showDetail="true">
+                <p:autoUpdate/>
+            </p:messages>
+        </h:form>
+        <p:separator></p:separator>
+       
+        <ui:insert name="conteudo"></ui:insert>
+
+        <ui:insert></ui:insert>
+
+    </h:body>
+
+</html>
