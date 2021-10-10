@@ -10,30 +10,28 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
-    private EstadoDaTela estadoDaTela = EstadoDaTela.BUSCAR;
+public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil {
+
+    private EstadoDaTela estadoDaTela;
     private E entidade;
     private List<E> entidades = new ArrayList<>();
     private L logic;
     private Class<E> classeEntidade;
-    
-    public CrudBean (Class<E> classeEntidade)
-    {
+
+    public CrudBean(Class<E> classeEntidade) {
         this.classeEntidade = classeEntidade;
+        this.buscar();
     }
-    
-    public enum EstadoDaTela
-    {
+
+    public enum EstadoDaTela {
         BUSCAR,
         INSERIR,
         ATUALIZAR
     }
-    
-    public void novo()
-    {
+
+    public void instanciarEntidade() {
         try {
             this.entidade = this.classeEntidade.newInstance();
-            this.estadoDaTela = EstadoDaTela.INSERIR;
         } catch (InstantiationException ex) {
             addErro("Erro ao criar instância.");
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -42,9 +40,14 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void salvar()
-    {
+
+    public void novo() {
+        instanciarEntidade();
+        this.estadoDaTela = EstadoDaTela.INSERIR;
+
+    }
+
+    public void salvar() {
         try {
             this.getLogic().salvar(entidade);
             buscar();
@@ -54,55 +57,49 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
         } catch (ErroSistemaException ex) {
             addErro(ex);
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
-    
-    public void editar(E entidade)
-    {
+
+    public void editar(E entidade) {
         try {
             this.entidade = this.getLogic().buscarPorId(entidade);
             this.setEstadoDaTela(EstadoDaTela.ATUALIZAR);
         } catch (ErroNegocioException ex) {
-           addAviso(ex);
+            addAviso(ex);
         } catch (ErroSistemaException ex) {
             addErro(ex);
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
-    public void remover(E entidade)
-    {
+    public void remover(E entidade) {
         try {
             this.getLogic().remover(entidade);
             this.entidades.remove(entidade);
             addInfo("Removido com sucesso.");
         } catch (ErroNegocioException ex) {
             addAviso(ex);
-        }  catch (ErroSistemaException ex) {
+        } catch (ErroSistemaException ex) {
             addErro(ex);
             Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    }
-    
-    public void buscar()
-    {
-        if(!this.estadoDaTela.equals(EstadoDaTela.BUSCAR))
-        {
-            this.estadoDaTela = EstadoDaTela.BUSCAR;
         }
-        else
-        {
+    }
+
+    public void buscar() {
+        if (!EstadoDaTela.BUSCAR.equals(this.estadoDaTela)) {
+            this.estadoDaTela = EstadoDaTela.BUSCAR;
+            this.instanciarEntidade();
+        } else {
             try {
-                this.entidades = getLogic().buscar(null);
+                this.entidades = getLogic().buscar(this.entidade);
             } catch (ErroNegocioException ex) {
                 addAviso(ex);
             } catch (ErroSistemaException ex) {
-                 addErro(ex);
+                addErro(ex);
                 Logger.getLogger(CrudBean.class.getName()).log(Level.SEVERE, null, ex);
-            } 
+            }
         }
-        
-        
+
     }
 
     public EstadoDaTela getEstadoDaTela() {
@@ -130,6 +127,5 @@ public abstract class CrudBean<E, L extends CrudLogic<E>> extends JSFUtil{
     }
 
     public abstract L getLogic();
-    
-    
+
 }

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="crudBean" required="true" displayName="Classe que extenda CrudBean" type="br.edu.iftm.ecommerce.bean.CrudBean">
+            
+        </cc:attribute>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton update="@form" icon="pi pi-file" value="Novo" actionListener="#{cc.attrs.crudBean.novo()}">  </p:commandButton>
+                <p:commandButton update="@form" icon="pi pi-save" value="Salvar" actionListener="#{cc.attrs.crudBean.salvar()}" rendered="#{cc.attrs.crudBean.estadoDaTela.name() != 'BUSCAR'}"></p:commandButton>
+                <p:commandButton update="@form" icon="pi pi-#{cc.attrs.crudBean.estadoDaTela.name() == 'BUSCAR'?'search':'chevron-left'}" value="#{cc.attrs.crudBean.estadoDaTela.name() == 'BUSCAR'?'Buscar':'Voltar'}" actionListener="#{cc.attrs.crudBean.buscar()}"></p:commandButton>
+
+                <cc:insertChildren></cc:insertChildren>
+            </p:toolbarGroup>
+            <p:toolbarGroup align="right">
+                <cc:renderFacet name="opcoes" ></cc:renderFacet>
+            </p:toolbarGroup>
+        </p:toolbar>
+    </cc:implementation>
+</html>

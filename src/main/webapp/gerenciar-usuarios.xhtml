@@ -4,18 +4,14 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="template.xhtml">
+                template="template.xhtml"
+                xmlns:ec="http://xmlns.jcp.org/jsf/composite/ec">
 
     <h:form>
         <h1>Gerenciar Usuarios</h1>
-        <p:toolbar>
-            <p:toolbarGroup>
-                <p:commandButton update="@form" value="Novo" actionListener="#{usuarioBean.novo()}">  </p:commandButton>
-                <p:commandButton update="@form" value="Salvar" actionListener="#{usuarioBean.salvar()}" rendered="#{usuarioBean.estadoDaTela.name() != 'BUSCAR'}">  </p:commandButton>
-                <p:commandButton update="@form" value="Buscar" actionListener="#{usuarioBean.buscar()}">  </p:commandButton>
-            </p:toolbarGroup>         
-        </p:toolbar>
-        <p:panel>
+        <ec:toolbarCrud crudBean="#{usuarioBean}"/>
+        <p:spacer height="50px"></p:spacer>
+        <p:panel header="">
             <p:panelGrid columns="2" rendered="#{usuarioBean.estadoDaTela.name() != 'BUSCAR'}">
                 <p:outputLabel value="Nome"></p:outputLabel>
                 <p:inputText value="#{usuarioBean.entidade.nome}"></p:inputText>
