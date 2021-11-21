@@ -8,29 +8,58 @@
     <h:head>
         <meta charset="UTF-8" />
         <title>Facelets Template</title>
-        <h:outputStylesheet library="css" name="default.css" ></h:outputStylesheet>
+        <h:outputStylesheet library="ecommerceif" name="css/bootstrap-reboot.css"></h:outputStylesheet>
+        <h:outputStylesheet library="ecommerceif" name="css/estilo.css"></h:outputStylesheet>
+        <h:outputStylesheet library="ecommerceif" name="css/fontawsome_all.css"></h:outputStylesheet>
     </h:head>
 
     <h:body>
-        <h:graphicImage width="50px" library="imagens" name="pakun.png"> </h:graphicImage>
-        
-        <h:form>
-            <p:menubar>
-                <p:menuitem value="Inicio" url="index.xhtml" icon="pi pi-fw pi-home"/>
-                <p:submenu label="Cadastros" icon="pi pi-fw pi-file">
-                    <p:menuitem value="Gerenciar Usuarios" url="gerenciar-usuarios.xhtml" icon="pi pi-fw pi-users"/>
-                </p:submenu>
-            </p:menubar>
-
-            <p:messages id="messages" closable="true" showDetail="true">
-                <p:autoUpdate/>
-            </p:messages>
-        </h:form>
-        <p:separator></p:separator>
-       
-        <ui:insert name="conteudo"></ui:insert>
-
-        <ui:insert></ui:insert>
+        <div class="wrapper active-menu">
+            <div class="preloader"></div>
+            <nav class="main-header">
+                <a href="#" class="show-menu">=</a>
+                <div class="options">
+                    <a href="">:D</a>
+                </div>
+            </nav>
+            <aside class="main-sidebar">
+                <div class="logo">
+                    LOGO
+                </div>
+                <ul>
+                    <li><a href="index.xhtml"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="gerenciar-usuarios.xhtml"><i class="pi pi-users"></i> Usuarios</a></li>
+                    <li><a href="gerenciar-categoria.xhtml"> <i class="fas fa-boxes"></i> Categoria</a></li>
+                    <li>
+                        <a class="submenu" href="javascript:"><i class="fas fa-wallet"></i> Financeiro <i class="fas fa-angle-down"></i></a>
+                        <ul>
+                             <li><a href="#"><i class="fas fa-cash-register"></i> Caixa</a></li>
+                            <li><a href="#"> <i class="fas fa-boxes"></i> Estoque</a></li>
+                            <li>
+                                <a class="submenu" href="javascript:"><i class="fas fa-wallet"></i> Financeiro <i class="fas fa-angle-down"></i></a>
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-cash-register"></i> Caixa</a></li>
+                                    <li><a href="#"> <i class="fas fa-boxes"></i> Estoque</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="">Relatório</a></li>
+                    <li><a href="">Configuração</a></li>
+                </ul>
+            </aside>
+            <div class="content-wrapper">
+                <p:messages id="messages" closable="true" showDetail="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <ui:insert></ui:insert>
+            </div>
+            <footer>
+                Rodapé
+            </footer>
+            <div class="sidebar-overlay"></div>
+        </div>
+        <h:outputScript library="ecommerceif" name="js/script.js"></h:outputScript>
 
     </h:body>
 

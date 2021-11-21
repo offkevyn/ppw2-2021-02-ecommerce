@@ -1,0 +1,179 @@
+:root {
+    --background-principal: #2e313b;
+    --color-principal: #fefefe;
+}
+* {
+    box-sizing: border-box;
+}
+.wrapper, body, html {
+    min-height: 100%;
+}
+.wrapper {
+    position: relative;
+}
+
+.wrapper .main-header {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1037;
+    background-color: var(--background-principal);
+    color: var(--color-principal);
+    height: 3.5rem;
+    transition: margin-left .4s ease-in-out,width .4s ease-in-out;
+}
+
+.main-header .show-menu {
+    float: left;
+    height: 3.5rem;
+    width: 3.5rem;
+    display: block;
+    line-height: 3.5rem;
+    text-align: center;
+    font-size: 1.2em;
+    transition: background 0.4s ease-in-out;
+}
+.main-header .show-menu:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.main-header .options {
+    float: right;
+
+}
+.main-header .options a {
+    height: 3.5rem;
+    width: 3.5rem;
+    display: block;
+    line-height: 3.5rem;
+    text-align: center;
+    font-size: 1.2em;
+    transition: background 0.4s ease-in-out;
+}
+.main-header .options a:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.main-sidebar {
+    bottom: 0;
+    float: none;
+    margin-left: -250px;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1038;
+    background-color: var(--background-principal);
+    color: var(--color-principal);
+}
+.main-sidebar .logo{
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+.main-sidebar a, .main-header a {
+    color: var(--color-principal);
+    text-decoration: none;
+}
+.main-sidebar, .main-sidebar::before {
+    transition: margin-left .4s ease-in-out,width .4s ease-in-out;
+    width: 250px;
+}
+.active-menu .main-sidebar {
+    margin-left: 0;
+    width: 250px;
+}
+.main-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.main-sidebar ul li a {
+    width: 250px;
+    display: block;
+    height: 3em;
+    line-height: 3em;
+    padding-left: 10px;
+    transition: background 0.4s ease-in-out;
+}
+.main-sidebar ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.main-sidebar ul li ul {
+    padding-left: 10px;
+    max-height: 0px;
+    transition: max-height 0.5s ease-in;
+    overflow: hidden;
+    /** display: none; */
+}
+
+.main-sidebar ul li ul.submenu-active {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+}
+.content-wrapper {
+    transition: margin-left .4s ease-in-out,width .4s ease-in-out;
+}
+footer {
+    height: 3.5rem;
+    line-height: 3.5rem;
+    padding-left: 15px;
+    border-top: 1px solid #aaa;
+    transition: margin-left .4s ease-in-out,width .4s ease-in;
+}
+
+/*
+*   Define a o tamanho vertical do conteudo principal
+*/
+.content-wrapper {
+    height: 100%;
+    padding: calc(3.5rem + 20px) 10px 10px 10px;
+}
+.wrapper .content-wrapper {
+    min-height: calc(100vh - calc(3.5rem + 1px) );
+}
+.sidebar-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: none;
+    top: 0;
+    cursor: pointer;
+}
+/* 
+* Configurações específicas para o telas maiores
+*/
+@media (min-width: 768px) {
+    .active-menu .main-header {
+        transition: margin-left .4s ease-in-out;
+        margin-left: 250px;
+    }
+    .active-menu .content-wrapper {
+        margin-left: 250px;
+    }
+    .active-menu .content-wrapper, .active-menu footer {
+        transition: margin-left .4s ease-in-out;
+        margin-left: 250px;
+    }
+    .active-menu-mobile {
+        margin-left: 0;
+    }
+}
+/*
+ *
+ *  CSS para configurar o menu lateral
+ *  em telas pequenas.
+ */
+@media (max-width: 767.98px) {
+    .wrapper .main-sidebar, .wrapper .main-sidebar::before {
+        box-shadow: none!important;
+        margin-left: -250px;
+    }
+    .wrapper.active-menu-mobile .main-sidebar {
+        margin-left: 0;
+    }
+    .wrapper.active-menu-mobile .sidebar-overlay {
+        display: block;
+    }
+}

@@ -23,13 +23,6 @@
                 <p:inputText value="#{usuarioBean.entidade.email}"></p:inputText>
                 <p:outputLabel value="Senha"></p:outputLabel>
                 <p:inputText  value="#{usuarioBean.entidade.senha}"></p:inputText>
-                
-                <p:dataList value="#{usuarioBean.entidade.permissoes}" var="p">
-                    <p:column>
-                        #{p.nome}
-                    </p:column>
-                    
-                </p:dataList>
 
             </p:panelGrid>
 
@@ -40,7 +33,7 @@
 
             <p:dataTable  value="#{usuarioBean.entidades}" var="usr" rendered="#{usuarioBean.estadoDaTela.name() == 'BUSCAR'}">
                 <p:column>
-                    <p:commandButton actionListener="#{usuarioBean.remover(usr)}" update="@form" icon="pi pi-trash">
+                    <p:commandButton actionListener="#{usuarioBean.remover(usr)}" update="@form" icon="fas fa-trash">
                         <p:confirm header="Confirma" message="Tem certeza que deseja deletar?" icon="pi pi-info-circle"/>
                     </p:commandButton>                    
                     <p:commandButton actionListener="#{usuarioBean.editar(usr)}" update="@form" icon="pi pi-pencil"></p:commandButton>
