@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="template.xhtml"
+                xmlns:ec="http://xmlns.jcp.org/jsf/composite/ec"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form>
+        <h1>Gerenciar Imagems</h1>
+        <ec:toolbarCrud crudBean="#{imagemBean}"/>
+        <p:spacer height="50px"></p:spacer>
+        <p:panel header="">
+            <p:panelGrid columns="2" rendered="#{imagemBean.estadoDaTela.name() != 'BUSCAR'}">
+                <p:outputLabel value="Nome"></p:outputLabel>
+                <p:inputText value="#{imagemBean.entidade.nome}"></p:inputText>
+                <p:outputLabel value="Imagens"></p:outputLabel>
+                <p:fileUpload listener="#{imagemBean.handleFileUpload}" update="arquivoselecionado" mode="simple" skinSimple="true" auto="true" process="@this"/>
+                <h:outputText value="Imagem selecionada"></h:outputText>
+                <h:outputText id="arquivoselecionado" value="#{imagemBean.entidade.file.fileName}"></h:outputText>
+            </p:panelGrid>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+            </p:confirmDialog>
+
+            <p:dataTable  value="#{imagemBean.entidades}" var="entidade" rendered="#{imagemBean.estadoDaTela.name() == 'BUSCAR'}">
+                <p:column>
+                    <p:commandButton actionListener="#{imagemBean.remover(entidade)}" update="@form" icon="fas fa-trash">
+                        <p:confirm header="Confirma" message="Tem certeza que deseja deletar?" icon="pi pi-info-circle"/>
+                    </p:commandButton>                    
+                    <p:commandButton actionListener="#{imagemBean.editar(entidade)}" update="@form" icon="pi pi-pencil"></p:commandButton>
+                </p:column>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{entidade.nome}"> </h:outputText>
+                </p:column>
+                <p:column headerText="Código">
+                    <h:outputText value="#{entidade.codigo}"> </h:outputText>
+                </p:column>
+
+            </p:dataTable>
+        </p:panel>
+    </h:form> 
+
+
+</ui:composition>

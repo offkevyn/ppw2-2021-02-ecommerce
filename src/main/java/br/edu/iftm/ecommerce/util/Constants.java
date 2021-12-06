@@ -4,5 +4,6 @@ public class Constants {
 
     public static final String VERSAO = "1.0.0";
     public static final String COPYRIGHT = "IFTM - Instituto Federal de Ciência e Tecnologia do Triângulo Mineiro";
+    public static final String FOLDER_IMAGES = System.getProperty("user.home") + "\\ecommerceif\\imagens\\";
 
 }

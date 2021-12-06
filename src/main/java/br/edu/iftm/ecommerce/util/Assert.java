@@ -154,5 +154,9 @@ public class Assert {
         }
         return false;
     }
+    
+    public static boolean isNull(Object o){
+        return o == null;
+    }
 
 }
